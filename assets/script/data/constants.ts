@@ -134,6 +134,7 @@ export class Constants {
     static BOARD_DROP_STEP = 0.5; 
     /** @property {number} Constants.BOARD_RADIUS_CENTER - 跳板圆心半径，小球根据距离圆心远近增加不同分数 */
     static BOARD_RADIUS_CENTER = 0.35; 
+    /** @property {number} Constants.BOARD_SPRING_FRAMES - 跳板的弹簧上升帧数 */
     static BOARD_SPRING_FRAMES = 10;
      /** @property {number} Constants.BOARD_WAVE_FRAMES - 板子波动帧率 */
     static BOARD_WAVE_FRAMES = 16; 
@@ -165,6 +166,7 @@ export class Constants {
     static CAMERA_MOVE_MINI_ERR = 0.02; 
     static CAMERA_OFFSET_Y = 10;
     static CAMERA_OFFSET_Y_SPRINT = 15;
+    /** @property {number} - 板撞击特效帧数 */
     static BOARD_BUMP_FRAMES = 10;
     static BOARD_BUMP_STEP = [-0.15, -0.1, -0.07, -0.02, -0.003, 0.003, 0.02, 0.07, 0.1, 0.15];
 

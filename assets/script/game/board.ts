@@ -221,6 +221,7 @@ export class Board extends Component {
         this.setSpringPos();
     }
 
+    /** 触发弹簧 */
     setSpring() {
         this.currSpringFrame = 0;
         this.setSpringPos();
@@ -238,16 +239,17 @@ export class Board extends Component {
         this.springTop.setPosition(pos);
     }
 
+    /** 弹簧特效 */
     effectSpring() {
         const z = this.type === Constants.BOARD_TYPE.SPRINT ? Constants.SPRING_HELIX_STEP_SPIRNT : Constants.SPRING_HELIX_STEP;
         const y = this.type === Constants.BOARD_TYPE.SPRINT ? Constants.SPRING_TOP_STEP_SPRINT : Constants.SPRING_TOP_STEP;
         const scale = this.springHelix.scale;
         const pos = this.springTop.position;
-        if (this.currSpringFrame < Constants.BOARD_SPRING_FRAMES) {
+        if (this.currSpringFrame < Constants.BOARD_SPRING_FRAMES) {// 弹簧上升
             this.springHelix.setScale(scale.x, scale.y + z, scale.z);
             this.springTop.setPosition(pos.x, pos.y + y, pos.z);
             this.currSpringFrame++;
-        } else if (this.currSpringFrame >= Constants.BOARD_SPRING_FRAMES && this.currSpringFrame < 2 * Constants.BOARD_SPRING_FRAMES) {
+        } else if (this.currSpringFrame >= Constants.BOARD_SPRING_FRAMES && this.currSpringFrame < 2 * Constants.BOARD_SPRING_FRAMES) {// 弹簧下降
             this.springHelix.setScale(scale.x, scale.y - z, scale.z);
             this.springTop.setPosition(pos.x, pos.y - y, pos.z);
             this.currSpringFrame++;
@@ -260,9 +262,11 @@ export class Board extends Component {
         this.currBumpFrame = 0;
     }
 
+    /** 撞击特效 */
     effectBump() {
         if (this.currBumpFrame < Constants.BOARD_BUMP_FRAMES) {
             const pos = this.node.position;
+            // 上下移动
             this.node.setPosition(pos.x, pos.y + Constants.BOARD_BUMP_STEP[this.currBumpFrame], pos.z);
             this.setCenterPos();
             this.currBumpFrame++;
@@ -312,9 +316,10 @@ export class Board extends Component {
         }
     }
 
+    /** 板子波纹特效 */
     effectWave() {
         if (this.currWaveFrame < Constants.BOARD_WAVE_FRAMES) {
-            if (this.currWaveFrame >= Constants.BOARD_WAVE_INNER_START_FRAMES) {
+            if (this.currWaveFrame >= Constants.BOARD_WAVE_INNER_START_FRAMES) {// 内层波纹
                 if (!this.waveInner.active) {
                     this.waveInner.active = true;
                 }
@@ -331,6 +336,7 @@ export class Board extends Component {
                 this.waveInner.setScale(scale.x + Constants.BOARD_WAVE_INNER_STEP, scale.y, scale.z + Constants.BOARD_WAVE_INNER_STEP);
             }
 
+            // 外层波纹
             const mat2 = this.wave.getComponent(ModelComponent).material;
             // 初始化时保存以下变量
             const pass = mat2.passes[0];

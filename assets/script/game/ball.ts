@@ -255,7 +255,7 @@ export class Ball extends Component {
         this.currBoard.setBump();
         this.currBoard.setWave();
         if (boardType == Constants.BOARD_TYPE.SPRING || boardType == Constants.BOARD_TYPE.SPRINT) {
-            this.currBoard.setSpring()
+            this.currBoard.setSpring(); // 触发弹簧
         }
 
         // 掉落板开始掉落
