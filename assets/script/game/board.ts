@@ -273,13 +273,16 @@ export class Board extends Component {
         }
     }
 
+    /** 置跳板中间位置，暂时没显示中间位置的图片 */
     initCenter() {
         this.center = instantiate(this.centerPrefab);
         this.node.parent.addChild(this.center);
         this.center.active = false;
     }
 
+    /** 设置跳板中间位置，暂时没显示中间位置的图片 */
     setCenterPos() {
+        /** 设置active = true由结果跳板的锚地位置在中间 */
         const pos = this.node.position.clone();
         pos.y += Constants.BOARD_HEIGTH / 2;
         this.center.setPosition(pos);

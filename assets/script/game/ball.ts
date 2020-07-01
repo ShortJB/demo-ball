@@ -108,8 +108,8 @@ export class Ball extends Component {
                     const board = boardList[i];
                     const pos = this.node.position;
                     const boardPos = boardList[i].node.position;
-                    // 跳板的锚点是在底部的吗？ 
-                    // 小球和板上的钻石检测
+                    // 跳板的锚点是在中间的吗？ 
+                    // 小球和板上的钻石检测 跳板圆内 距离跳板y轴距离小于Constants.DIAMOND_SCORE_AREA
                     if (Math.abs(pos.x - boardPos.x) <= boardList[i].getRadius() && Math.abs(pos.y - (boardPos.y + Constants.BOARD_HEIGTH)) <= Constants.DIAMOND_SCORE_AREA) {
                         boardList[i].checkDiamond(this.node.position.x);
                     }
@@ -181,6 +181,7 @@ export class Ball extends Component {
         this.isTouch = false;
     }
 
+    /** 重新开始 */
     reset() {
         this.boardCount = 0;
         this.diffLevel = 1;
@@ -408,6 +409,7 @@ export class Ball extends Component {
         return false;
     }
 
+    /** 复活 */
     revive() {
         this.currBoardIdx--;
         if (this.currBoard.type === Constants.BOARD_TYPE.SPRINT) {
@@ -428,6 +430,7 @@ export class Ball extends Component {
         this.setTrailPos();
     }
 
+    /** 吃钻石特性 */
     playDiamondParticle(pos: Vec3) {
         // @ts-ignore
         const diamondParticle = PoolManager.instance.getNode(this.diamondParticlePrefab, this.node.parent);
@@ -443,11 +446,13 @@ export class Ball extends Component {
         this.schedule(fun, 0.1);
     }
 
+    /** 播放小球尾巴特性 */
     playTrail(){
         this.trailNode.active = true;
         this.trailNode.getComponentInChildren(ParticleSystemComponent).play();
     }
 
+    /** 设置小球尾巴特性位置 */
     setTrailPos() {
         const pos = this.node.position;
         this.trailNode.setPosition(pos.x, pos.y - 0.1, pos.z);
