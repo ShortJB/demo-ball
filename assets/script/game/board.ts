@@ -110,6 +110,8 @@ export class Board extends Component {
         }
 
         this.hasDiamond = false;
+        // 普通跳板或掉落跳板至多只有一钻石
+        // 大跳板有5个钻石
         if (this.diamondList[0]) {
             for (let i = 0; i < 5; i++) {
                 this.diamondList[i].active = false;
@@ -121,7 +123,7 @@ export class Board extends Component {
                     this.hasDiamond = true;
                 }
             } else if (this.type === Constants.BOARD_TYPE.NORMAL || this.type === Constants.BOARD_TYPE.DROP) {
-                if (Math.random() > .7) {
+                if (Math.random() > .7) {// 3成概率显示中间的钻石
                     this.diamondList[2].active = true;
                     this.hasDiamond = true;
                 }
@@ -138,6 +140,7 @@ export class Board extends Component {
         this.posBeforeDrop.set(this.node.position);
     }
 
+    /** 掉落效果 */
     effectDrop() {
         if (this.currDropFrame < Constants.BOARD_DROP_FRAMES) {
             for (let i = 0; i < 5; i++) {
