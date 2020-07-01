@@ -39,11 +39,15 @@ export class Board extends Component {
     currWaveFrame = 0;
     currSpringFrame = 0;
     currBumpFrame = Constants.BOARD_BUMP_FRAMES;
+    /** 弹簧顶部节点 */
     springTop: Node = null;
+    /** 螺旋节点 */
     springHelix: Node = null;
     springHelixOriginScale = new Vec3();
     center: Node = null;
+    /** 往右方向移动 */
     isMovingRight = true;
+    /** 跳板存在钻石 */
     hasDiamond = false;
     isMoving = false;
     posBeforeDrop = new Vec3();
@@ -204,6 +208,7 @@ export class Board extends Component {
         }
     }
 
+    /** 构建弹簧节点 */
     initSpring() {
         this.springHelix = instantiate(this.springHelixPrefab);
         this.springHelixOriginScale = this.springHelix.getScale();
@@ -231,6 +236,10 @@ export class Board extends Component {
     }
 
     setSpringPos() {
+        // 弹簧的锚点在最底部
+        // 弹簧的顶部锚点在中间
+        // 跳板的锚点在中间
+        // 钻石的锚点在底部偏上
         let pos = this.node.position.clone();
         pos.y += Constants.BOARD_HEIGTH / 2;
         this.springHelix.setPosition(pos);
@@ -370,7 +379,7 @@ export class Board extends Component {
         return Math.random() * t > 5;
     }
 
-    /** 移动特效 */
+    /** 左右移动特效 */
     effectMove() {
         if (this.isMoving) {
             var pos = this.node.getPosition().clone();
@@ -386,7 +395,7 @@ export class Board extends Component {
             } else if (!this.isMovingRight && x < - Constants.SCENE_MAX_OFFSET_X) {
                 this.isMovingRight = true
             }
-            if (this.type === Constants.BOARD_TYPE.SPRING) {
+            if (this.type === Constants.BOARD_TYPE.SPRING) {// 移动弹簧
                 this.springHelix.setPosition(this.node.position.x, this.springHelix.position.y, this.springHelix.position.z);
                 this.springTop.setPosition(this.node.position.x, this.springTop.position.y, this.springTop.position.z);
             }

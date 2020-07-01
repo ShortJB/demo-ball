@@ -111,6 +111,7 @@ export class BoardManager extends Component {
         }
     }
 
+    /** 设置冲刺复用钻石数量 */
     setDiamond(pos: Vec3) {
         const position = pos.clone();
         position.y += Constants.BALL_JUMP_STEP_SPRINT * Constants.DIAMOND_START_FRAME;
@@ -122,6 +123,13 @@ export class BoardManager extends Component {
         }
     }
 
+    /** 
+     * 增加新的冲刺钻石  
+     * 1. 获取最后元素的位置，根据这个元素位置设置新钻石的位置
+     * 2. 先shift数组第一个元素
+     * 3. 设置新元素位置
+     * 4. push进新数组
+     */
     newDiamond() {
         _diamondPos.set(this.diamondSprintList[Constants.DIAMOND_NUM - 1].position);
         this.setNextDiamondPos(_diamondPos);
