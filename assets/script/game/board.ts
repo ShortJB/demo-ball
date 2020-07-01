@@ -367,6 +367,7 @@ export class Board extends Component {
         return Math.random() * t > 5;
     }
 
+    /** 移动特效 */
     effectMove() {
         if (this.isMoving) {
             var pos = this.node.getPosition().clone();
